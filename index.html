@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAINS Clothes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #ffeef2;
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        nav {
+            background: linear-gradient(90deg, #ffc1d6, #ffd6e7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        nav h2 {
+            color: #d63384;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        nav a {
+            color: #333;
+            margin-left: 1.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d63384;
+        }
+
+        header {
+            background-color: palevioletred;
+            background-size: cover;
+            background-attachment: fixed;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            text-shadow: 0 0 15px #fff;
+        }
+
+        .guide-wrapper {
+            background: url('picsxyz/blaj.jpg') center center / cover no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .guide-scroll {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .guide-card {
+            scroll-snap-align: start;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 1rem 0;
+            border-radius: 14px;
+            width: 85%;
+            max-width: 420px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transform: scale(0.9);
+            opacity: 0;
+            animation: popIn 0.6s forwards;
+        }
+
+        .guide-card:nth-child(n) {
+            animation-delay: calc(0.2s * var(--i));
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .guide-card h3 {
+            margin-bottom: 0.7rem;
+            font-size: 1.6rem;
+            color: #d63384;
+        }
+
+        .guide-card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .product {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            width: 250px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .product:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 18px #f8bbd0;
+        }
+
+        .expanded {
+            background: #fff;
+            padding: 2rem;
+            margin-top: 1rem;
+            border-radius: 15px;
+            position: absolute;
+            z-index: 1000;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider img {
+            width: 100px;
+            height: 100px;
+            margin: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .slider img:hover {
+            transform: scale(1.1);
+        }
+
+        .buy-section {
+            background: #fff0f5;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .buy-info,
+        .buy-pay {
+            flex: 1 1 300px;
+            background: #fff;
+            padding: 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 12px #f8bbd0;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .buy-info img,
+        .buy-pay img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: #d63384;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #b9206a;
+            transform: scale(1.05);
+        }
+
+        .proceed-section {
+            background: #fff0f5;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            border-radius: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 1rem;
+            border-radius: 8px;
+            resize: none;
+        }
+
+        .user-details {
+            padding: 3rem 2rem;
+            background: #fff;
+            margin: 2rem auto;
+            border-radius: 12px;
+            max-width: 800px;
+            box-shadow: 0 0 12px #f8bbd0;
+        }
+
+        .user-details input,
+        .user-details textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.15);
+        }
+
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #imageModal img {
+            max-width: 85vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #fff;
+        }
+
+        @media screen and (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .buy-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product {
+                width: 90%;
+            }
+
+            .guide-card {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h2>MAINS Clothes</h2>
+        <div>
+            <a href="#guide">Guide</a>
+            <a href="#products">Products</a>
+            <a href="#buy">Buy</a>
+            <a href="#proceed">Proceed</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>MAINS Clothes</h1>
+    </header>
+
+    <div id="guide" class="guide-wrapper">
+        <div class="guide-scroll">
+            <div class="guide-card">
+                <h3>Step 1</h3>
+                <p>Scroll to view products.</p>
+            </div>
+            <div class="guide-card">
+                <h3>Step 2</h3>
+                <p>Click on a product to expand it.</p>
+            </div>
+            <div class="guide-card">
+                <h3>Step 3</h3>
+                <p>Click "Add" to put it in the buy section.</p>
+            </div>
+            <div class="guide-card">
+                <h3>Step 4</h3>
+                <p>Pay using QR code or PayPal.</p>
+            </div>
+            <div class="guide-card">
+                <h3>Alternative</h3>
+                <p>Don't want to pay first? Just copy your order and contact us directly!</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section" id="products">
+        <h2>Our Products</h2>
+        <h3>Category A</h3>
+        <div class="products" id="categoryA"></div>
+        <h3>Category B</h3>
+        <div class="products" id="categoryB"></div>
+    </section>
+
+    <section class="user-details">
+        <h2>Enter Your Details (Optional)</h2>
+        <input type="text" placeholder="Name">
+        <input type="tel" placeholder="Contact Number">
+        <input type="email" placeholder="Email">
+        <textarea placeholder="Shipping Address"></textarea>
+        <button class="btn" onclick="updateOrderText()">Proceed</button>
+    </section>
+
+    <section class="buy-section" id="buy">
+        <div class="buy-info">
+            <h3>Your Items</h3>
+            <div id="buyItems"></div>
+            <p>Total: $<span id="totalPrice">0</span></p>
+        </div>
+        <div class="buy-pay">
+            <h3>Payment</h3>
+            <img src="" alt="QR Code" width="150"><br><br>
+            <a href="www.paypal.com" target="_blank">
+                <img src="picsxyz/paypal.jpg" alt="PayPal">
+            </a>
+        </div>
+    </section>
+
+    <section class="proceed-section" id="proceed">
+        <h2>Proceed Order</h2>
+        <p>Copy your product IDs and bill:</p>
+        <textarea id="orderText" rows="4" readonly></textarea>
+        <button class="btn" onclick="copyOrder()">Copy</button>
+        <button class="btn" onclick="sendToDiscord()">Send</button>
+        <div style="margin-top: 1.5rem; text-align: center;">
+            <p>send the details:</p>
+            <div class="social-links">
+                <a href="https://discord.gg/svbTHvAB" target="_blank">
+                    <img src="picsxyz/disco.jpg" alt="Discord" />
+                </a>
+                <a href="https://www.instagram.com/clothes.mains" target="_blank">
+                    <img src="picsxyz/ins.jpg" alt="Instagram" />
+                </a>
+                <a href="https://guns.lol/clothing" target="_blank">
+                    <img src="picsxyz/MAINSNSS.webp" alt="Mains" />
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="imageModal">
+        <img id="modalImage" src="" />
+    </div>
+
+    <script>
+        const products = [
+            { id: 'P101', name: 'T-Shirt1', price: 20, category: 'A', images: ['picsxyz/Back_Azalea_1.png', 'picsxyz/Back_2_White.png', 'picsxyz/Back_2_White.png'] },
+            { id: 'P102', name: 'T-Shirt2', price: 40, category: 'A', images: ['picsxyz/Folded_White.png', 'picsxyz/Back_2_White.png', 'picsxyz/Back_2_White.png'] },
+            { id: 'P103', name: 'T-Shirt3', price: 50, category: 'B', images: ['picsxyz/Front_Black.png', 'picsxyz/Back_2_White.png', 'picsxyz/Back_2_White.png'] }
+        ];
+
+        const categoryA = document.getElementById('categoryA');
+        const categoryB = document.getElementById('categoryB');
+        const buyItems = document.getElementById('buyItems');
+        const orderText = document.getElementById('orderText');
+        let total = 0;
+        let orderData = [];
+
+        products.forEach(prod => {
+            const div = document.createElement('div');
+            div.className = 'product';
+            div.onclick = (e) => expandProduct(prod.id, e.currentTarget);
+            div.innerHTML = `<h3>${prod.name}</h3><p>$${prod.price}</p><img src='${prod.images[0]}' style='width:100%;border-radius:10px;margin-top:10px;'>`;
+            if (prod.category === 'A') categoryA.appendChild(div);
+            else categoryB.appendChild(div);
+        });
+
+        function expandProduct(pid, cardElement) {
+            const prod = products.find(p => p.id === pid);
+            const rect = cardElement.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            const expanded = document.createElement('div');
+            expanded.className = 'expanded';
+            expanded.style.top = `${rect.top + scrollTop}px`;
+            expanded.style.left = `${rect.left}px`;
+            expanded.style.width = `${rect.width}px`;
+
+            let currentImg = 0;
+
+            const updateSlider = () => {
+                const slider = expanded.querySelector('.slider');
+                slider.innerHTML = `
+        <button onclick="event.stopPropagation(); changeImage(-1)" class="btn" style="position:absolute;left:5px;top:40%;z-index:1;">◀</button>
+        <img src="${prod.images[currentImg]}" onclick='expandImage("${prod.images[currentImg]}", ${JSON.stringify(prod.images)})' />
+        <button onclick="event.stopPropagation(); changeImage(1)" class="btn" style="position:absolute;right:5px;top:40%;z-index:1;">▶</button>
+      `;
+            };
+
+            window.changeImage = function (dir) {
+                currentImg = (currentImg + dir + prod.images.length) % prod.images.length;
+                updateSlider();
+            };
+
+            expanded.innerHTML = `
+      <div class='slider' style="position:relative;text-align:center;"></div>
+      <p><strong>Name:</strong> ${prod.name}</p>
+      <p><strong>ID:</strong> ${prod.id} <button class='btn' onclick='copyID("${prod.id}")'>Copy</button></p>
+      <p><strong>Price:</strong> $${prod.price}</p>
+      <button class='btn' onclick='addToBuy("${prod.id}")'>Add</button>
+    `;
+
+            document.querySelector('.expanded')?.remove();
+            document.body.appendChild(expanded);
+            updateSlider();
+
+            setTimeout(() => {
+                document.addEventListener('click', outsideClickHandler);
+            }, 10);
+
+            function outsideClickHandler(e) {
+                if (!expanded.contains(e.target)) {
+                    expanded.remove();
+                    document.removeEventListener('click', outsideClickHandler);
+                }
+            }
+        }
+
+        function expandImage(url, allImages) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            let index = allImages.indexOf(url);
+            modal.setAttribute('data-images', JSON.stringify(allImages));
+            modal.setAttribute('data-index', index);
+            modalImg.src = url;
+            modal.style.display = "flex";
+            updateModalControls();
+        }
+
+        function updateModalControls() {
+            if (!document.getElementById("modalControls")) {
+                const controls = document.createElement("div");
+                controls.id = "modalControls";
+                controls.style.position = "absolute";
+                controls.style.bottom = "30px";
+                controls.style.display = "flex";
+                controls.style.gap = "20px";
+                controls.style.zIndex = "99999";
+                controls.style.justifyContent = "center";
+                controls.style.width = "100%";
+                controls.innerHTML = `
+        <button class="btn" onclick="navigateModal(-1)">◀</button>
+        <button class="btn" onclick="closeModal()">❌</button>
+        <button class="btn" onclick="navigateModal(1)">▶</button>
+      `;
+                document.getElementById("imageModal").appendChild(controls);
+            }
+        }
+
+        function navigateModal(dir) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            let images = JSON.parse(modal.getAttribute("data-images"));
+            let index = parseInt(modal.getAttribute("data-index"));
+            index = (index + dir + images.length) % images.length;
+            modal.setAttribute("data-index", index);
+            modalImg.src = images[index];
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        document.getElementById("imageModal").addEventListener("click", function (e) {
+            if (e.target.id === "imageModal") this.style.display = "none";
+        });
+
+        function addToBuy(pid) {
+            const prod = products.find(p => p.id === pid);
+            total += prod.price;
+            orderData.push(prod.id);
+            const item = document.createElement('p');
+            item.innerHTML = `${prod.id} - $${prod.price} <button class='btn' onclick="removeItem(this, ${prod.price}, '${prod.id}')">Remove</button>`;
+            buyItems.appendChild(item);
+            document.getElementById('totalPrice').innerText = total;
+            updateOrderText();
+        }
+
+        function removeItem(button, price, id) {
+            total -= price;
+            orderData = orderData.filter(item => item !== id);
+            button.parentElement.remove();
+            document.getElementById('totalPrice').innerText = total;
+            updateOrderText();
+        }
+
+        function updateOrderText() {
+            const name = document.querySelector('.user-details input[type="text"]').value || "N/A";
+            const contact = document.querySelector('.user-details input[type="tel"]').value || "N/A";
+            const email = document.querySelector('.user-details input[type="email"]').value || "N/A";
+            const address = document.querySelector('.user-details textarea').value || "N/A";
+            orderText.value = `Product IDs: ${orderData.join(', ')}\nTotal: $${total}\n\nName: ${name}\nContact: ${contact}\nEmail: ${email}\nAddress: ${address}`;
+        }
+
+        function copyOrder() {
+            orderText.select();
+            document.execCommand('copy');
+        }
+
+        function copyID(id) {
+            navigator.clipboard.writeText(id);
+            alert('Product ID copied: ' + id);
+        }
+
+        function sendToDiscord() {
+            const name = document.querySelector('.user-details input[type="text"]').value || "N/A";
+            const contact = document.querySelector('.user-details input[type="tel"]').value || "N/A";
+            const email = document.querySelector('.user-details input[type="email"]').value || "N/A";
+            const address = document.querySelector('.user-details textarea').value || "N/A";
+            const orderSummary = `**New Order**\n🛒 **Products**: ${orderData.join(', ')}\n **Total**: $${total}\n\n👤 **Name**: ${name}\n📱 **Contact**: ${contact}\n📧 **Email**: ${email}\n🏠 **Address**: ${address}`;
+
+            fetch("https://discord.com/api/webhooks/1397101860254384139/syrm-y7yXwNnARPFq2bN89dY7tZUewHA71e6sZKJM4QQC8r700J2ua-Ma9U_Vy4BONGJ", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ content: orderSummary })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Order sent to Discord!");
+                    } else {
+                        alert("Failed to send. Check webhook URL.");
+                    }
+                })
+                .catch(err => {
+                    alert("Error sending to Discord: " + err.message);
+                });
+        }
+    </script>
+
+</body>
+
+</html>
